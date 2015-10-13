@@ -86,6 +86,16 @@ public class TransactionController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/types/ids/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Collection<Long> getIdsByType(@PathVariable String type) throws TransactionException {
+        Collection<Long> result = manager.getIdsByType(type);
+        if (result == null || result.isEmpty()) {
+            throw new TransactionException("No transaction found for type " + type);
+        }
+        return result;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/sum/{$transaction_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public SumObject getSumByParent(@PathVariable("$transaction_id") Long parentId) throws TransactionException {
         return new SumObject(manager.sum(parentId));

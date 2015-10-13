@@ -29,6 +29,7 @@ public class TransactionControllerTest {
     private static final String GET_POST_URL = "http://localhost:8080/transactionservice/transaction/{$transaction_id}";
     private static final String PUT_URL = "http://localhost:8080/transactionservice/transaction/update/{$transaction_id}";
     private static final String GET_BY_TYPE_URL = "http://localhost:8080//transactionservice/types/{$type}";
+    private static final String GET_IDS_BY_TYPE_URL = "http://localhost:8080//transactionservice/types/ids/{$type}";
     private static final String GET_SUM_URL = "http://localhost:8080/transactionservice/sum/{$transaction_id}";
 
     private RestTemplate restTemplate = null;
@@ -83,6 +84,16 @@ public class TransactionControllerTest {
     public void tryByType() {
         restTemplate.getForObject(GET_BY_TYPE_URL, Transaction[].class, "bubu");
     }
+
+
+    @Test
+    public void getIdsByType() {
+        Long[] transactions = restTemplate.getForObject(GET_IDS_BY_TYPE_URL, Long[].class, "food");
+
+        assertNotNull(transactions);
+        assertEquals(2, transactions.length);
+    }
+
 
     @Test
     public void getSum() {

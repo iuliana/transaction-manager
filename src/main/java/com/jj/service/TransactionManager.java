@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by iuliana.cosmina on 10/13/15.
@@ -84,6 +82,14 @@ public class TransactionManager {
 
     public Collection<Transaction> getByType(String type) {
         return storageByType.get(type);
+    }
+
+    public List<Long> getIdsByType(String type) {
+        List<Long> result = new ArrayList<>();
+        for(Transaction t : storageByType.get(type)) {
+            result.add(t.getId());
+        }
+        return result;
     }
 
     public Double sum(Long parentId) {
