@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.6.RELEASE'
+        junitVersion = '4.12'
+
+         deps = [
+                springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
+                starterWeb      : "org.springframework.boot:spring-boot-starter-web:$springBootVersion",
+                starterWebSocket: "org.springframework.boot:spring-boot-starter-websocket:$springBootVersion",
+                starterJetty    : "org.springframework.boot:spring-boot-starter-jetty:$springBootVersion",
+                starterTest     : "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
+                actuator        : "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
+                junit           : "junit:junit:$junitVersion"
+        ]
+
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath deps.springBootPlugin
+        }
+    }
+}
+
+jar {
+    baseName = 'transaction-manager'
+    version =  '1.0-SNAPSHOT'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(deps.starterWeb) {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile deps.starterJetty
+
+    testCompile deps.junit
+}
+
