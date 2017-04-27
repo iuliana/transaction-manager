@@ -2,50 +2,52 @@
  * Created by iuliana.cosmina on 10/13/15.
  */
 buildscript {
-    ext {
-        springBootVersion = '1.2.6.RELEASE'
-        junitVersion = '4.12'
-        guavaVersion = '18.0'
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/libs-snapshot" }
+	}
 
-        deps = [
-                springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
-                starterWeb      : "org.springframework.boot:spring-boot-starter-web:$springBootVersion",
-                starterWebSocket: "org.springframework.boot:spring-boot-starter-websocket:$springBootVersion",
-                starterJetty    : "org.springframework.boot:spring-boot-starter-jetty:$springBootVersion",
-                starterTest     : "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
-                actuator        : "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
-                guava           : "com.google.guava:guava:18.0",
-                junit           : "junit:junit:$junitVersion"
-        ]
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath deps.springBootPlugin
-    }
+	ext {
+		springBootVersion = '2.0.0.BUILD-SNAPSHOT'
+		junitVersion = '4.12'
+		guavaVersion = '18.0'
+
+		deps = [
+				springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
+				starterWeb      : "org.springframework.boot:spring-boot-starter-web:$springBootVersion",
+				starterWebSocket: "org.springframework.boot:spring-boot-starter-websocket:$springBootVersion",
+				starterJetty    : "org.springframework.boot:spring-boot-starter-jetty:$springBootVersion",
+				starterTest     : "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
+				actuator        : "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
+				guava           : "com.google.guava:guava:18.0",
+				junit           : "junit:junit:$junitVersion"
+		]
+	}
+
+	dependencies {
+		classpath deps.springBootPlugin
+	}
 }
 
-apply plugin: 'spring-boot'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'transaction-manager'
-    version = '1.0-SNAPSHOT'
+	baseName = 'transaction-manager'
+	version = '1.0-SNAPSHOT'
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+	maven { url "https://repo.spring.io/libs-snapshot" }
 }
 
 dependencies {
-    compile(deps.starterWeb) {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile deps.guava, deps.starterJetty
+	compile(deps.starterWeb) {
+		exclude module: "spring-boot-starter-tomcat"
+	}
+	compile deps.guava
+	compile deps.starterJetty
 
-    testCompile deps.junit
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.6'
+	testCompile deps.junit
 }
