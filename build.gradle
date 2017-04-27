@@ -1,6 +1,10 @@
 /**
  * Created by iuliana.cosmina on 10/13/15.
  */
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
 buildscript {
 	repositories {
 		mavenCentral()
@@ -29,13 +33,14 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-
 jar {
 	baseName = 'transaction-manager'
 	version = '1.0-SNAPSHOT'
+	manifest {
+		attributes('Main-Class': 'com.jj.Application')
+	}
 }
+
 
 repositories {
 	mavenCentral()

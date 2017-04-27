@@ -1,0 +1,30 @@
+== Transaction Manager
+Sample application to manage some mock transactions.
+Uses:
+- Spring Boot 1.2.6.RELEASE
+- Java 1.8
+Supports:
+- adding 
+- updating
+- get by id
+- get by type
+- show by type
+- sum by parent
+
+== Building and Deploying
+This is a Gradle single-module project. Build it from scratch using:
+----
+gradle clean build
+----
+
+Build it without tests using:
+----
+gradle build -x test
+----
+
+You can start it by executing the main method in class "Application". After the application is started you can also execute the tests in class "TransactionControllerTest".
+
+
+Also, try accessing http://localhost:8080/hello in your browser for a list of beans initialized by Spring Boot
+
+
